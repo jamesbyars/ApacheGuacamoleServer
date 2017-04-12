@@ -1,0 +1,13 @@
+# Apache Guacamole AWS Cloudformation Template
+
+## Creation
+
+`aws cloudformation create-stack --profile siq --template-body file://template.yml --stack-name test-guacamole-large`
+
+## Deletion
+
+`aws cloudformation delete-stack --stack-name test-guacamole-large --profile siq`
+
+## SSH
+
+`ssh -i [key] ubuntu@[DNS Name]`
