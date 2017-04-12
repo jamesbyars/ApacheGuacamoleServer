@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion : 2010-09-09
+Description: Apache Guacamole Server
+Resources:
+  ApacheGuacamoleSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow Apache Guacamole
+      VpcId: vpc-26e7a940
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '80'
+        ToPort: '80'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '8080'
+        ToPort: '8080'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: '0'
+        ToPort: '65535'
+        CidrIp: 0.0.0.0/0
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-f4cc1de2
+      KeyName: jbyars
+      InstanceType: m4.large
+      SecurityGroupIds:
+        - !GetAtt ApacheGuacamoleSG.GroupId
+      Tags:
+        -
+          Key: Name
+          Value: Apache Guacamole Server
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -xe
+          apt-get update -y
+          yes | sudo apt-get install -y maven guacamole-tomcat libguac-client-ssh0 libguac-client-rdp0
+          sudo /etc/init.d/guacd start
+          sudo /etc/init.d/tomcat8 restart
