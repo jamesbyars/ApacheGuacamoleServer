@@ -40,6 +40,6 @@ Resources:
         Fn::Base64: !Sub |
           #!/bin/bash -xe
           apt-get update -y
-          yes | sudo apt-get install -y maven guacamole-tomcat libguac-client-ssh0 libguac-client-rdp0
+          yes | sudo apt-get install -y guacamole-tomcat libguac-client-ssh0 libguac-client-rdp0
           sudo /etc/init.d/guacd start
           sudo /etc/init.d/tomcat8 restart
