@@ -1,5 +1,18 @@
 AWSTemplateFormatVersion : 2010-09-09
 Description: Apache Guacamole Server
+Parameters:
+  InstanceTypeParameter:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m4.large
+    Description: Enter t2.micro, m1.small, or m4.large. Default is t2.micro.
+  InstanceKeyPairParameter:
+    Type: String
+    Default: jbyars
+    Description: Name of the KeyPair you choose to use to ssh into the box
 Resources:
   ApacheGuacamoleSG:
     Type: AWS::EC2::SecurityGroup
@@ -28,8 +41,10 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: ami-f4cc1de2
-      KeyName: jbyars
-      InstanceType: m4.large
+      KeyName:
+        Ref: InstanceKeyPairParameter
+      InstanceType:
+        Ref: InstanceTypeParameter
       SecurityGroupIds:
         - !GetAtt ApacheGuacamoleSG.GroupId
       Tags:

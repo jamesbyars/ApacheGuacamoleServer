@@ -2,7 +2,7 @@
 
 ## Creation
 
-`aws cloudformation create-stack --profile siq --template-body file://template.yml --stack-name test-guacamole-large`
+`aws cloudformation create-stack --profile siq --template-body file://template.yml --stack-name guacamole-stack`
 
 ## Deletion
 
