@@ -16,7 +16,7 @@ Visit the page at [DNS]:8080/guacamole
 
 ## Deletion
 
-`aws cloudformation delete-stack --stack-name test-guacamole-large --profile siq`
+`aws cloudformation delete-stack --stack-name guacamole-stack --profile siq`
 
 ## SSH
 
